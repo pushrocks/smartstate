@@ -1,0 +1,16 @@
+{
+  "npmci": {
+    "npmGlobalTools": [],
+    "npmAccessLevel": "public"
+  },
+  "gitzone": {
+    "module": {
+      "githost": "gitlab.com",
+      "gitscope": "pushrocks",
+      "gitrepo": "smartstate",
+      "shortDescription": "a package that handles state in a good way",
+      "npmPackagename": "@pushrocks/smartstate",
+      "license": "MIT"
+    }
+  }
+}

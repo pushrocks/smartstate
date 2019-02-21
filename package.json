@@ -1,0 +1,27 @@
+{
+  "name": "@pushrocks/smartstate",
+  "version": "1.0.7",
+  "private": false,
+  "description": "a package that handles state in a good way",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "author": "Lossless GmbH",
+  "license": "MIT",
+  "scripts": {
+    "test": "(tstest test/)",
+    "build": "(tsbuild)",
+    "format": "(gitzone format)"
+  },
+  "devDependencies": {
+    "@gitzone/tsbuild": "^2.1.8",
+    "@gitzone/tstest": "^1.0.15",
+    "@pushrocks/tapbundle": "^3.0.7",
+    "@types/node": "^11.9.4",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "dependencies": {
+    "@pushrocks/lik": "^3.0.4",
+    "rxjs": "^6.4.0"
+  }
+}

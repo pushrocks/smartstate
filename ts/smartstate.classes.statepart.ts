@@ -3,21 +3,21 @@ import * as plugins from './smartstate.plugins';
 import { Observable, Subject } from 'rxjs';
 import { startWith, takeUntil, map } from 'rxjs/operators';
 
-import { StateAction } from './smartstate.classes.stateaction';
+import { StateAction, IActionDef } from './smartstate.classes.stateaction';
 
-export class StatePart<StatePartNameType, PayloadType> {
-  name: StatePartNameType;
-  state = new Subject<PayloadType>();
-  stateStore: PayloadType;
+export class StatePart<TStatePartName, TStatePayload> {
+  name: TStatePartName;
+  state = new Subject<TStatePayload>();
+  stateStore: TStatePayload;
 
-  constructor(nameArg: StatePartNameType) {
+  constructor(nameArg: TStatePartName) {
     this.name = nameArg;
   }
 
   /**
    * gets the state from the state store
    */
-  getState(): PayloadType {
+  getState(): TStatePayload {
     return this.stateStore;
   }
 
@@ -25,7 +25,7 @@ export class StatePart<StatePartNameType, PayloadType> {
    * sets the stateStore to the new state
    * @param newStateArg
    */
-  setState(newStateArg: PayloadType) {
+  setState(newStateArg: TStatePayload) {
     this.stateStore = newStateArg;
     this.notifyChange();
   }
@@ -40,9 +40,9 @@ export class StatePart<StatePartNameType, PayloadType> {
   /**
    * selects a state or a substate
    */
-  select<T = PayloadType>(selectorFn?: (state: PayloadType) => T): Observable<T> {
+  select<T = TStatePayload>(selectorFn?: (state: TStatePayload) => T): Observable<T> {
     if (!selectorFn) {
-      selectorFn = (state: PayloadType) => <T>(<any>state);
+      selectorFn = (state: TStatePayload) => <T>(<any>state);
     }
 
     const mapped = this.state.pipe(
@@ -54,10 +54,17 @@ export class StatePart<StatePartNameType, PayloadType> {
   }
 
   /**
+   * creates an action capable of modifying the state
+   */
+  createAction <TActionPayload>(actionDef: IActionDef<TStatePayload, TActionPayload>): StateAction<TStatePayload, TActionPayload> {
+    return new StateAction(actionDef);
+  }
+
+  /**
    * dispatches an action on the statepart level
    */
-  async dispatch(stateAction: StateAction<PayloadType>) {
-    const newState = stateAction.actionDef(this.getState());
+  async dispatchAction<T>(stateAction: StateAction<TStatePayload, T>, actionPayload: T) {
+    const newState = await stateAction.actionDef(this, actionPayload);
     this.setState(newState);
   }
 }

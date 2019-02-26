@@ -30,12 +30,20 @@ tap.test('should create a new StatePart', async () => {
 
 tap.test('should select something', async () => {
   testStatePart
-    .select(state => state.deep)
+    .select(state => state.deep.hi)
     .subscribe(substate => {
-      console.log(substate);
+      expect(substate).to.equal(2);
     });
 });
 
-tap.test('should dispatch a state action', async () => {});
+tap.test('should dispatch a state action', async () => {
+  const addFavourite = testStatePart.createAction<string>(async (statePart, payload) => {
+    const currentState = statePart.getState();
+    currentState.currentFavorites.push(payload)
+    return currentState;
+  });
+  await testStatePart.dispatchAction(addFavourite, 'my favourite things')
+  expect(testStatePart.getState().currentFavorites).to.include('my favourite things')
+});
 
 tap.start();

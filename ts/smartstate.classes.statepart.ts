@@ -56,7 +56,9 @@ export class StatePart<TStatePartName, TStatePayload> {
   /**
    * creates an action capable of modifying the state
    */
-  createAction <TActionPayload>(actionDef: IActionDef<TStatePayload, TActionPayload>): StateAction<TStatePayload, TActionPayload> {
+  createAction<TActionPayload>(
+    actionDef: IActionDef<TStatePayload, TActionPayload>
+  ): StateAction<TStatePayload, TActionPayload> {
     return new StateAction(actionDef);
   }
 

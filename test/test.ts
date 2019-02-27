@@ -39,11 +39,11 @@ tap.test('should select something', async () => {
 tap.test('should dispatch a state action', async () => {
   const addFavourite = testStatePart.createAction<string>(async (statePart, payload) => {
     const currentState = statePart.getState();
-    currentState.currentFavorites.push(payload)
+    currentState.currentFavorites.push(payload);
     return currentState;
   });
-  await testStatePart.dispatchAction(addFavourite, 'my favourite things')
-  expect(testStatePart.getState().currentFavorites).to.include('my favourite things')
+  await testStatePart.dispatchAction(addFavourite, 'my favourite things');
+  expect(testStatePart.getState().currentFavorites).to.include('my favourite things');
 });
 
 tap.start();

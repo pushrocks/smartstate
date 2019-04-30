@@ -5,7 +5,7 @@ import { StatePart } from './smartstate.classes.statepart';
  * Smartstate takes care of providing state
  */
 export class Smartstate<StatePartNameType> {
-  statePartMap: { [key: string]: StatePart<StatePartNameType, any> } = {};
+  public statePartMap: { [key: string]: StatePart<StatePartNameType, any> } = {};
 
   constructor() {}
 
@@ -30,6 +30,11 @@ export class Smartstate<StatePartNameType> {
     }
   }
 
+  /**
+   * creates a statepart
+   * @param statePartName
+   * @param initialPayloadArg 
+   */
   private createStatePart<PayloadType>(
     statePartName: StatePartNameType,
     initialPayloadArg: PayloadType

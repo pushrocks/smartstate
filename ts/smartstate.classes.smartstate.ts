@@ -9,7 +9,7 @@ export class Smartstate<StatePartNameType> {
 
   constructor() {}
 
-  getStatePart<PayloadType>(
+  public getStatePart<PayloadType>(
     statePartNameArg: StatePartNameType,
     initialArg?: PayloadType
   ): StatePart<StatePartNameType, PayloadType> {
@@ -33,7 +33,7 @@ export class Smartstate<StatePartNameType> {
   /**
    * creates a statepart
    * @param statePartName
-   * @param initialPayloadArg 
+   * @param initialPayloadArg
    */
   private createStatePart<PayloadType>(
     statePartName: StatePartNameType,
@@ -48,5 +48,5 @@ export class Smartstate<StatePartNameType> {
   /**
    * dispatches an action on the main level
    */
-  dispatch() {}
+  public dispatch() {}
 }

@@ -83,12 +83,13 @@ export class StatePart<TStatePartName, TStatePayload> {
   public async waitUntilPresent<T = TStatePayload>(selectorFn?: (state: TStatePayload) => T): Promise<T> {
     const done = plugins.smartpromise.defer<T>();
     const selectedObservable = this.select(selectorFn);
-    const subscription = selectedObservable.subscribe(value => {
+    const subscription = selectedObservable.subscribe(async value => {
       if (value) {
-        subscription.unsubscribe();
         done.resolve(value);
       }
     });
-    return await done.promise;
+    const result = await done.promise;
+    subscription.unsubscribe();
+    return result;
   }
 }

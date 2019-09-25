@@ -36,14 +36,21 @@ tap.test('should select something', async () => {
     });
 });
 
-tap.test('should dispatch a state action', async () => {
+tap.test('should dispatch a state action', async (tools) => {
+  const done = tools.defer();
   const addFavourite = testStatePart.createAction<string>(async (statePart, payload) => {
     const currentState = statePart.getState();
     currentState.currentFavorites.push(payload);
     return currentState;
   });
+  testStatePart.waitUntilPresent(state => {
+    return state.currentFavorites[0];
+  }).then(() => {
+    done.resolve();
+  });
   await testStatePart.dispatchAction(addFavourite, 'my favourite things');
   expect(testStatePart.getState().currentFavorites).to.include('my favourite things');
+  await done.promise;
 });
 
 tap.start();

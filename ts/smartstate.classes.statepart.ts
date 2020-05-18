@@ -47,7 +47,7 @@ export class StatePart<TStatePartName, TStatePayload> {
 
     const mapped = this.state.pipe(
       startWith(this.getState()),
-      map((stateArg) => {
+      map(stateArg => {
         try {
           return selectorFn(stateArg);
         } catch (e) {
@@ -80,7 +80,9 @@ export class StatePart<TStatePartName, TStatePayload> {
    * waits until a certain part of the state becomes available
    * @param selectorFn
    */
-  public async waitUntilPresent<T = TStatePayload>(selectorFn?: (state: TStatePayload) => T): Promise<T> {
+  public async waitUntilPresent<T = TStatePayload>(
+    selectorFn?: (state: TStatePayload) => T
+  ): Promise<T> {
     const done = plugins.smartpromise.defer<T>();
     const selectedObservable = this.select(selectorFn);
     const subscription = selectedObservable.subscribe(async value => {

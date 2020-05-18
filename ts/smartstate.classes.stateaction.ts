@@ -9,7 +9,10 @@ export interface IActionDef<TStateType, TActionPayloadType> {
  * an actionmodifier for the state
  */
 export class StateAction<TStateType, TActionPayloadType> {
-  constructor(public statePartRef: StatePart<any, any>, public actionDef: IActionDef<TStateType, TActionPayloadType>) {}
+  constructor(
+    public statePartRef: StatePart<any, any>,
+    public actionDef: IActionDef<TStateType, TActionPayloadType>
+  ) {}
 
   public trigger(payload: TActionPayloadType) {
     this.statePartRef.dispatchAction(this, payload);

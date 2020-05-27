@@ -1,11 +1,4 @@
-import { Observable } from 'rxjs';
-
-const rxjsPart = {
-  Observable
-};
-
-export { rxjsPart };
-
 import * as smartpromise from '@pushrocks/smartpromise';
+import * as smartrx from '@pushrocks/smartrx';
 
-export { smartpromise };
+export { smartpromise, smartrx };

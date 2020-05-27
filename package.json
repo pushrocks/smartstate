@@ -9,20 +9,22 @@
   "license": "MIT",
   "scripts": {
     "test": "(tstest test/)",
-    "build": "(tsbuild)",
+    "build": "(tsbuild && tsbundle npm)",
     "format": "(gitzone format)"
   },
   "devDependencies": {
     "@gitzone/tsbuild": "^2.1.24",
+    "@gitzone/tsbundle": "^1.0.69",
     "@gitzone/tstest": "^1.0.28",
     "@pushrocks/tapbundle": "^3.2.1",
-    "@types/node": "^14.0.1",
+    "@types/node": "^14.0.5",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0"
   },
   "dependencies": {
-    "@pushrocks/lik": "^4.0.0",
+    "@pushrocks/lik": "^4.0.12",
     "@pushrocks/smartpromise": "^3.0.6",
+    "@pushrocks/smartrx": "^2.0.15",
     "rxjs": "^6.5.5"
   },
   "files": [

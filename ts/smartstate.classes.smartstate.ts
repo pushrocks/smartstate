@@ -44,9 +44,4 @@ export class Smartstate<StatePartNameType> {
     this.statePartMap[statePartName as any] = newState;
     return newState;
   }
-
-  /**
-   * dispatches an action on the main level
-   */
-  public dispatch() {}
 }

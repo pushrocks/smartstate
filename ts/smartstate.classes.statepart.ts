@@ -1,13 +1,9 @@
 import * as plugins from './smartstate.plugins';
-
-import { Observable, Subject } from 'rxjs';
-import { startWith, takeUntil, map } from 'rxjs/operators';
-
 import { StateAction, IActionDef } from './smartstate.classes.stateaction';
 
 export class StatePart<TStatePartName, TStatePayload> {
   public name: TStatePartName;
-  public state = new Subject<TStatePayload>();
+  public state = new plugins.smartrx.rxjs.Subject<TStatePayload>();
   public stateStore: TStatePayload;
 
   constructor(nameArg: TStatePartName) {
@@ -40,14 +36,16 @@ export class StatePart<TStatePartName, TStatePayload> {
   /**
    * selects a state or a substate
    */
-  public select<T = TStatePayload>(selectorFn?: (state: TStatePayload) => T): Observable<T> {
+  public select<T = TStatePayload>(
+    selectorFn?: (state: TStatePayload) => T
+  ): plugins.smartrx.rxjs.Observable<T> {
     if (!selectorFn) {
       selectorFn = (state: TStatePayload) => <T>(<any>state);
     }
 
     const mapped = this.state.pipe(
-      startWith(this.getState()),
-      map(stateArg => {
+      plugins.smartrx.rxjs.ops.startWith(this.getState()),
+      plugins.smartrx.rxjs.ops.map(stateArg => {
         try {
           return selectorFn(stateArg);
         } catch (e) {

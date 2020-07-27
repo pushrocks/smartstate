@@ -5,12 +5,12 @@ import { StatePart } from './smartstate.classes.statepart';
  * Smartstate takes care of providing state
  */
 export class Smartstate<StatePartNameType> {
-  public statePartMap: { [key: string]: StatePart<StatePartNameType, any> } = {};
+  public statePartMap: { [key: string]: StatePart<StatePartNameType, unknown> } = {};
 
   constructor() {}
 
   public getStatePart<PayloadType>(
-    statePartNameArg: StatePartNameType,
+    statePartNameArg: string & StatePartNameType,
     initialArg?: PayloadType
   ): StatePart<StatePartNameType, PayloadType> {
     if (this.statePartMap[statePartNameArg as any]) {
@@ -19,7 +19,7 @@ export class Smartstate<StatePartNameType> {
           `${statePartNameArg} already exists, yet you try to set an initial state again`
         );
       }
-      return this.statePartMap[statePartNameArg as any];
+      return this.statePartMap[statePartNameArg] as StatePart<StatePartNameType, PayloadType>;
     } else {
       if (!initialArg) {
         throw new Error(

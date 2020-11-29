@@ -45,7 +45,7 @@ export class StatePart<TStatePartName, TStatePayload> {
 
     const mapped = this.state.pipe(
       plugins.smartrx.rxjs.ops.startWith(this.getState()),
-      plugins.smartrx.rxjs.ops.map(stateArg => {
+      plugins.smartrx.rxjs.ops.map((stateArg) => {
         try {
           return selectorFn(stateArg);
         } catch (e) {
@@ -83,7 +83,7 @@ export class StatePart<TStatePartName, TStatePayload> {
   ): Promise<T> {
     const done = plugins.smartpromise.defer<T>();
     const selectedObservable = this.select(selectorFn);
-    const subscription = selectedObservable.subscribe(async value => {
+    const subscription = selectedObservable.subscribe(async (value) => {
       if (value) {
         done.resolve(value);
       }

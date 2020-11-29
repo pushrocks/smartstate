@@ -15,8 +15,8 @@ export class Smartstate<StatePartNameType> {
    * initMode === 'mandatory' will fail if there is an exiting statepart
    * initMode === 'force' will overwrite any existing statepart
    * @param statePartNameArg
-   * @param initialArg 
-   * @param initMode 
+   * @param initialArg
+   * @param initMode
    */
   public getStatePart<PayloadType>(
     statePartNameArg: string & StatePartNameType,
@@ -24,7 +24,7 @@ export class Smartstate<StatePartNameType> {
     initMode?: 'soft' | 'mandatory' | 'force'
   ): StatePart<StatePartNameType, PayloadType> {
     if (this.statePartMap[statePartNameArg as any]) {
-      if (initialArg && (!initMode || initMode !== 'soft')) {
+      if (initialArg && (!initMode || initMode !== 'soft')) {
         throw new Error(
           `${statePartNameArg} already exists, yet you try to set an initial state again`
         );

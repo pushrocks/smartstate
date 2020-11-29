@@ -14,7 +14,7 @@ export class Smartstate<StatePartNameType> {
     initialArg?: PayloadType
   ): StatePart<StatePartNameType, PayloadType> {
     if (this.statePartMap[statePartNameArg as any]) {
-      if (initialArg) {
+      if (initialArg  && Object.keys(initialArg).length > 0) {
         throw new Error(
           `${statePartNameArg} already exists, yet you try to set an initial state again`
         );

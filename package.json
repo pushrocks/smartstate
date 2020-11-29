@@ -1,6 +1,6 @@
 {
   "name": "@pushrocks/smartstate",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "private": false,
   "description": "a package that handles state in a good way",
   "main": "dist_ts/index.js",

@@ -9,10 +9,19 @@ export class Smartstate<StatePartNameType> {
 
   constructor() {}
 
+  /**
+   * Allows getting and initializing a new statepart
+   * initMode === 'soft' it will allow existing stateparts
+   * initMode === 'mandatory' will fail if there is an exiting statepart
+   * initMode === 'force' will overwrite any existing statepart
+   * @param statePartNameArg
+   * @param initialArg 
+   * @param initMode 
+   */
   public getStatePart<PayloadType>(
     statePartNameArg: string & StatePartNameType,
     initialArg?: PayloadType,
-    initMode?: 'soft' | 'mandatory'
+    initMode?: 'soft' | 'mandatory' | 'force'
   ): StatePart<StatePartNameType, PayloadType> {
     if (this.statePartMap[statePartNameArg as any]) {
       if (initialArg && (!initMode || initMode !== 'soft')) {
